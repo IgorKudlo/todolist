@@ -1,4 +1,6 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react'
+import React, { ChangeEvent, KeyboardEvent, useState } from 'react'
+import { TextField, IconButton } from '@material-ui/core'
+import { AddBox } from '@material-ui/icons'
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
@@ -6,33 +8,37 @@ type AddItemFormPropsType = {
 
 const AddItemForm = (props: AddItemFormPropsType) => {
     const [title, setTitle] = useState<string>('')
-    const [error, setError]  = useState<boolean>(false)
+    const [error, setError]  = useState<string | null>(null)
 
-    const onChangeSetTitle = (e: ChangeEvent<HTMLInputElement>) => {
-        error && setError(false)
-        setTitle(e.currentTarget.value)
-    }
     const onClickAddItem = () => {
         if (title.trim()) {
             props.addItem(title)
+            setTitle('')
         } else {
-            setError(true)
+            setError('Title is required')
         }
-        setTitle("")
     }
-    const onKeyPressAddItem = (e: KeyboardEvent<HTMLInputElement>) => {if(e.key === 'Enter') onClickAddItem()}
-
-    const errorInputStyle = error ? {border: '2px solid red', outline: 'none'} : undefined
+    const onKeyPressAddItem = (e: KeyboardEvent<HTMLInputElement>) => {
+        setError(null)
+        if(e.key === 'Enter') onClickAddItem()
+    }
+    const onChangeSetTitle = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value)
+    }
 
     return (
         <div>
-            <input value={title}
-                   onChange={onChangeSetTitle}
-                   onKeyDown={onKeyPressAddItem}
-                   style={errorInputStyle}
+            <TextField variant="outlined"
+                       error={!!error}
+                       value={title}
+                       onChange={onChangeSetTitle}
+                       onKeyPress={onKeyPressAddItem}
+                       label="Title"
+                       helperText={error}
             />
-            <button onClick={onClickAddItem}>+</button>
-            {error && <div style={{color: 'red', fontWeight: 'bold'}}>Title is required!</div>}
+            <IconButton color="primary" onClick={onClickAddItem}>
+                <AddBox />
+            </IconButton>
         </div>
     );
 };
