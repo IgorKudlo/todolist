@@ -1,5 +1,7 @@
 import React, {useState, ChangeEvent, KeyboardEvent} from 'react';
 import {FilterValuesType, TaskType} from './App';
+import AddItemForm from './AddItemForm'
+import EditableSpan from './EditableSpan';
 
 type TodolistPropsType = {
     todolistID: string
@@ -7,41 +9,31 @@ type TodolistPropsType = {
     filter: FilterValuesType
     removeTodolist: (todolistID: string) => void
     changeFilter: (filter: FilterValuesType, todolistID: string) => void
+    changeTodolistTitle: (title: string, todolistID: string) => void
     tasks: Array<TaskType>
     addTask: (title: string, todolistID: string) => void
     removeTask: (taskID: string, todolistID: string) => void
     changeTaskStatus: (taskID: string, isDone: boolean, todolistID: string) => void
+    changeTaskTitle: (taskID: string, title: string, todolistID: string) => void
 }
 
 const Todolist: React.FC<TodolistPropsType> = (props) => {
-    const [title, setTitle] = useState<string>('')
-    const [error, setError]  = useState<boolean>(false)
-
     const removeTodolist = () => props.removeTodolist(props.todolistID);
-
-    const onClickAddTask = () => {
-        if (title.trim()) {
-            props.addTask(title, props.todolistID)
-        } else {
-            setError(true)
-        }
-        setTitle("")
-    }
-    const onKeyPressAddTask = (e: KeyboardEvent<HTMLInputElement>) => {if(e.key === 'Enter') onClickAddTask()}
-    const onChangeSetTitle = (e: ChangeEvent<HTMLInputElement>) => {
-        error && setError(false)
-        setTitle(e.currentTarget.value)
-    }
-
     const changeFilter = (filter: FilterValuesType) => {
         return () => props.changeFilter(filter, props.todolistID)
     }
+    const changeTodolistTitle = (title: string) => props.changeTodolistTitle(title, props.todolistID)
+
+    const addTask = (title: string) => props.addTask(title, props.todolistID)
 
     const tasksListItem = props.tasks.length
         ? props.tasks.map(t => {
             const onClickRemoveTask = () => props.removeTask(t.id, props.todolistID)
             const onChangeStatus = (e: ChangeEvent<HTMLInputElement>) => {
                 props.changeTaskStatus(t.id, e.currentTarget.checked, props.todolistID)
+            }
+            const changeTaskTitle = (title: string) => {
+                props.changeTaskTitle(t.id, title, props.todolistID)
             }
 
             const taskClasses = t.isDone ? 'is-done' : '';
@@ -52,7 +44,9 @@ const Todolist: React.FC<TodolistPropsType> = (props) => {
                            checked={t.isDone}
                            onChange={onChangeStatus}
                     />
-                    <span className={taskClasses}>{t.title}</span>
+                    <span className={taskClasses}>
+                        <EditableSpan title={t.title} setNewTitle={changeTaskTitle}/>
+                    </span>
                     <button onClick={onClickRemoveTask}>x</button>
                 </li>
             )
@@ -63,23 +57,13 @@ const Todolist: React.FC<TodolistPropsType> = (props) => {
     const activeBtnClasses = props.filter === 'active' ? 'active-filter' : '';
     const completedBtnClasses = props.filter === 'completed' ? 'active-filter' : '';
 
-    const errorInputStyle = error ? {border: '2px solid red', outline: 'none'} : undefined
-
     return (
         <div>
             <h3>
-                {props.title}
+                <EditableSpan title={props.title} setNewTitle={changeTodolistTitle}/>
                 <button onClick={removeTodolist}>x</button>
             </h3>
-            <div>
-                <input value={title}
-                       onChange={onChangeSetTitle}
-                       onKeyDown={onKeyPressAddTask}
-                       style={errorInputStyle}
-                />
-                <button onClick={onClickAddTask}>+</button>
-                {error && <div style={{color: 'red', fontWeight: 'bold'}}>Title is required!</div>}
-            </div>
+            <AddItemForm addItem={addTask}/>
             <ul>
                 {tasksListItem}
             </ul>
