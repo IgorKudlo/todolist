@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
+import {setRef} from '@mui/material';
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
@@ -36,6 +37,12 @@ export const todolistsAPI = {
     }
 }
 
+export const authAPI = {
+    login(data: LoginParamsType) {
+        return instance.post<LoginParamsType, ResponseType<{userId: number}>>('/auth/login', data)
+    }
+}
+
 // types
 export type TodolistType = {
     id: string
@@ -48,6 +55,13 @@ export type ResponseType<D = {}> = {
     messages: Array<string>
     fieldsErrors: Array<string>
     data: D
+}
+
+export type LoginParamsType = {
+    email: string
+    password: string
+    rememberMe?: boolean
+    captcha?: string
 }
 
 
