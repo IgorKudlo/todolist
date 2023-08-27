@@ -28,8 +28,10 @@ export const Todolist = (props: PropsType) => {
     }
 
     const addTask = () => {
-        props.addTask(title)
-        setTitle('')
+        if (title.trim() !== '') {
+            props.addTask(title)
+            setTitle('')
+        }
     }
 
     const onAllClickHandler = () => {
