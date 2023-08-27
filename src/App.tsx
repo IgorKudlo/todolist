@@ -25,8 +25,8 @@ export const App = () => {
         tasksForTodolist = tasks.filter(task => task.isDone === true)
     }
 
-    const addTask = () => {
-        setTasks([{ id: v1(), title: "New Task", isDone: false }, ...tasks])
+    const addTask = (title: string) => {
+        setTasks([{ id: v1(), title, isDone: false }, ...tasks])
     }
 
     const removeTask = (id: string) => {
