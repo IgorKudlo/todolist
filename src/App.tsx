@@ -51,6 +51,14 @@ export const App = () => {
         setTasks({...tasks})
     }
 
+    const changeTodolistTitle = (todolistId: string, title: string) => {
+        const todolist = todolists.find(tl => tl.id === todolistId)
+        if (todolist) {
+            todolist.title = title
+            setTodolists([...todolists]);
+        }
+    }
+
 
     const addTask = (title: string, todolistId: string) => {
         let task = { id: v1(), title, isDone: false }
@@ -110,6 +118,7 @@ export const App = () => {
                         id={todolist.id}
                         title = {todolist.title}
                         tasks={tasksForTodolist}
+                        changeTodolistTitle={changeTodolistTitle}
                         addTask={addTask}
                         removeTask={removeTask}
                         changeTaskStatus={changeTaskStatus}
