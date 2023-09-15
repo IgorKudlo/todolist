@@ -27,6 +27,8 @@ export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
 
+/* useReducer */
+
 
 function AppWithReducer() {
     let todolistId1 = v1();
