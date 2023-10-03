@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import Button from "@mui/material/Button";
 import { useActions } from "common/hooks";
-import { FilterValuesType, TodolistDomainType, todolistsActions } from "features/TodolistsList/model/todolists.reducer";
+import { FilterValuesType, TodolistDomainType, todolistsActions } from "features/TodolistsList/model/todolist/todolists.reducer";
 
 type Props = {
   todolist: TodolistDomainType;

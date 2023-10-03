@@ -6,7 +6,7 @@ import { useActions } from "common/hooks";
 import { TaskStatuses } from "common/enums";
 import { EditableSpan } from "common/components";
 import { TaskType } from "features/TodolistsList/api/todolists.api";
-import { tasksThunks } from "features/TodolistsList/model/tasks.reducer";
+import { tasksThunks } from "features/TodolistsList/model/tasks/tasks.reducer";
 import s from './Task.module.css';
 
 type Props = {

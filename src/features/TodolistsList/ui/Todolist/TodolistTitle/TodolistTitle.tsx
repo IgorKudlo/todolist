@@ -3,7 +3,7 @@ import IconButton from "@mui/material/IconButton";
 import Delete from "@mui/icons-material/Delete";
 import { EditableSpan } from "common/components";
 import { useActions } from "common/hooks";
-import { TodolistDomainType, todolistsThunks } from "features/TodolistsList/model/todolists.reducer";
+import { TodolistDomainType, todolistsThunks } from "features/TodolistsList/model/todolist/todolists.reducer";
 
 type Props = {
   todolist: TodolistDomainType;
