@@ -7,7 +7,7 @@ type Props = {
   todolist: TodolistDomainType;
 };
 
-const FilterTasksButtons: FC<Props> = ({ todolist }) => {
+export const FilterTasksButtons: FC<Props> = ({ todolist }) => {
   const { changeTodolistFilter } = useActions(todolistsActions);
 
   const changeTodolistFilterHandler = (filter: FilterValuesType) => {
@@ -40,5 +40,3 @@ const FilterTasksButtons: FC<Props> = ({ todolist }) => {
     </>
   );
 };
-
-export default FilterTasksButtons;
