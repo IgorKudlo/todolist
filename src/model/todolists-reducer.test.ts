@@ -1,6 +1,6 @@
 import {v1} from 'uuid'
 import { beforeEach, expect, test } from 'vitest'
-import type {Todolist} from '../App'
+import type {Todolist} from '../app/App'
 import {
   changeTodolistFilterAC,
   changeTodolistTitleAC,
@@ -24,7 +24,7 @@ beforeEach(() => {
 })
 
 test('correct todolist should be deleted', () => {
-  const endState = todolistsReducer(startState, deleteTodolistAC(todolistId1))
+  const endState = todolistsReducer(startState, deleteTodolistAC({id: todolistId1}))
 
   expect(endState.length).toBe(1)
   expect(endState[0].id).toBe(todolistId2)
