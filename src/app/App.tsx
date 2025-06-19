@@ -1,16 +1,16 @@
 import './App.css'
 import {ThemeProvider} from '@mui/material/styles'
-import {CreateItemForm} from '../CreateItemForm'
+import {CreateItemForm} from '@/CreateItemForm'
 import {
   changeTaskStatusAC,
   changeTaskTitleAC,
   createTaskAC, deleteTaskAC,
-} from '../model/tasks-reducer'
+} from '@/model/tasks-reducer'
 import {
   changeTodolistFilterAC,
   changeTodolistTitleAC, createTodolistAC, deleteTodolistAC,
-} from '../model/todolists-reducer'
-import {TodolistItem} from '../TodolistItem'
+} from '@/model/todolists-reducer'
+import {TodolistItem} from '@/TodolistItem'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
@@ -20,15 +20,15 @@ import Grid from '@mui/material/Grid2'
 import Paper from '@mui/material/Paper'
 import Switch from '@mui/material/Switch'
 import CssBaseline from '@mui/material/CssBaseline'
-import {containerSx} from '../TodolistItem.styles'
-import {NavButton} from '../NavButton'
-import { useAppSelector } from '../common/hooks/useAppSelector'
-import { useAppDispatch } from '../common/hooks/useAppDispatch'
-import { selectTodolists } from '../model/todolists-selectors'
-import { selectTasks } from '../model/tasks-selectors'
+import {containerSx} from '@/TodolistItem.styles'
+import {NavButton} from '@/NavButton'
+import { useAppSelector } from '@/common/hooks/useAppSelector'
+import { useAppDispatch } from '@/common/hooks/useAppDispatch'
+import { selectTodolists } from '@/model/todolists-selectors'
+import { selectTasks } from '@/model/tasks-selectors'
 import { selectThemeMode } from './app-selectors'
 import { changeThemeModeAC } from './app-reducer'
-import { getTheme } from '../common/theme/theme'
+import { getTheme } from '@/common/theme/theme'
 
 export type Todolist = {
   id: string
