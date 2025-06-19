@@ -1,6 +1,5 @@
 import './App.css'
-import {createTheme, ThemeProvider} from '@mui/material/styles'
-import {useState} from 'react'
+import {ThemeProvider} from '@mui/material/styles'
 import {CreateItemForm} from '../CreateItemForm'
 import {
   changeTaskStatusAC,
@@ -29,6 +28,7 @@ import { selectTodolists } from '../model/todolists-selectors'
 import { selectTasks } from '../model/tasks-selectors'
 import { selectThemeMode } from './app-selectors'
 import { changeThemeModeAC } from './app-reducer'
+import { getTheme } from '../common/theme/theme'
 
 export type Todolist = {
   id: string
@@ -53,14 +53,7 @@ export const App = () => {
 
   const dispatch = useAppDispatch();
 
-  const theme = createTheme({
-    palette: {
-      mode: themeMode,
-      primary: {
-        main: '#087EA4',
-      },
-    },
-  })
+  const theme = getTheme(themeMode)
 
   const changeMode = () => {
     dispatch(changeThemeModeAC({ themeMode: themeMode === 'light' ? 'dark' : 'light' }))
