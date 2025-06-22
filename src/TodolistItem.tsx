@@ -1,5 +1,5 @@
 import type {ChangeEvent} from 'react'
-import type {FilterValues, Task, Todolist} from './app/App'
+import type {FilterValues, Todolist} from './app/App'
 import {CreateItemForm} from './CreateItemForm'
 import {EditableSpan} from './EditableSpan'
 import Checkbox from '@mui/material/Checkbox'
@@ -11,17 +11,18 @@ import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import {containerSx, getListItemSx} from './TodolistItem.styles'
 import {useAppDispatch } from '@/common/hooks/useAppDispatch'
-import {changeTodolistFilterAC, changeTodolistTitleAC, deleteTodolistAC} from '@/model/todolists-reducer'
+import {changeTodolistFilterAC} from '@/model/todolists-reducer'
 import {changeTaskStatusAC, changeTaskTitleAC, createTaskAC, deleteTaskAC} from '@/model/tasks-reducer'
 import {useAppSelector} from '@/common/hooks/useAppSelector'
 import {selectTasks } from '@/model/tasks-selectors'
+import { TodolistTitle } from './TodolistTitle'
 
 type Props = {
   todolist: Todolist
 }
 
 export const TodolistItem = ({ todolist }: Props) => {
-  const { id, title, filter } = todolist
+  const { id, filter } = todolist
 
   const tasks = useAppSelector(selectTasks)
 
@@ -40,28 +41,13 @@ export const TodolistItem = ({ todolist }: Props) => {
     dispatch(changeTodolistFilterAC({id, filter}))
   }
 
-  const deleteTodolistHandler = () => {
-    dispatch(deleteTodolistAC({id}))
-  }
-
-  const changeTodolistTitleHandler = (title: string) => {
-    dispatch(changeTodolistTitleAC({id, title}))
-  }
-
   const createTaskHandler = (title: string) => {
     dispatch(createTaskAC({todolistId: id, title}))
   }
 
   return (
       <div>
-        <div className={'container'}>
-          <h3>
-            <EditableSpan value={title} onChange={changeTodolistTitleHandler} />
-          </h3>
-          <IconButton onClick={deleteTodolistHandler}>
-            <DeleteIcon />
-          </IconButton>
-        </div>
+        <TodolistTitle todolist={todolist} />
         <CreateItemForm onCreateItem={createTaskHandler}/>
         {filteredTasks.length === 0 ? (
             <p>Тасок нет</p>
