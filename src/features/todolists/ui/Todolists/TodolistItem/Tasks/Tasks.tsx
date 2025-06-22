@@ -1,8 +1,8 @@
 import List from '@mui/material/List'
 import {useAppSelector} from '@/common/hooks/useAppSelector'
-import {selectTasks } from '@/model/tasks-selectors'
-import type {Todolist} from './app/App'
-import { TaskItem } from './TaskItem'
+import {selectTasks } from '@/features/todolists/model/tasks-selectors'
+import { Todolist } from '@/app/App'
+import { TaskItem } from './TaskItem/TaskItem'
 
 type Props = {
   todolist: Todolist

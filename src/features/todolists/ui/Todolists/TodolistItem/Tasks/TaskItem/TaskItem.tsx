@@ -1,13 +1,13 @@
-import {EditableSpan} from './EditableSpan'
+import { getListItemSx } from './TaskItem.styles'
+import type {ChangeEvent} from 'react'
 import Checkbox from '@mui/material/Checkbox'
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
 import ListItem from '@mui/material/ListItem'
-import {getListItemSx} from './TodolistItem.styles'
-import {changeTaskStatusAC, changeTaskTitleAC, deleteTaskAC} from '@/model/tasks-reducer'
-import type {ChangeEvent} from 'react'
+import {EditableSpan} from '@/common/components/EditableSpan/EditableSpan'
+import {changeTaskStatusAC, changeTaskTitleAC, deleteTaskAC} from '@/features/todolists/model/tasks-reducer'
 import {useAppDispatch } from '@/common/hooks/useAppDispatch'
-import { Task } from './app/App'
+import { Task } from '@/app/App'
 
 type Props = {
   task: Task

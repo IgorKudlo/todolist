@@ -1,10 +1,10 @@
-import {containerSx} from './TodolistItem.styles'
-import {changeTodolistFilterAC} from '@/model/todolists-reducer'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import type {FilterValues} from './app/App'
-import {useAppDispatch } from '@/common/hooks/useAppDispatch'
-import type {Todolist} from './app/App'
+import {changeTodolistFilterAC} from '@/features/todolists/model/todolists-reducer'
+import {useAppDispatch} from '@/common/hooks/useAppDispatch'
+import {containerSx} from '@/common/styles/container.styles'
+import type {FilterValues} from '@/app/App'
+import type {Todolist} from '@/app/App'
 
 type Props = {
   todolist: Todolist
