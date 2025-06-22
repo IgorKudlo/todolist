@@ -13,19 +13,28 @@ import {containerSx, getListItemSx} from './TodolistItem.styles'
 import {useAppDispatch } from '@/common/hooks/useAppDispatch'
 import {changeTodolistFilterAC, changeTodolistTitleAC, deleteTodolistAC} from '@/model/todolists-reducer'
 import {changeTaskStatusAC, changeTaskTitleAC, createTaskAC, deleteTaskAC} from '@/model/tasks-reducer'
+import {useAppSelector} from '@/common/hooks/useAppSelector'
+import {selectTasks } from '@/model/tasks-selectors'
 
 type Props = {
   todolist: Todolist
-  tasks: Task[]
 }
 
-export const TodolistItem = (props: Props) => {
-  const {
-    todolist: {id, title, filter},
-    tasks,
-  } = props
+export const TodolistItem = ({ todolist }: Props) => {
+  const { id, title, filter } = todolist
+
+  const tasks = useAppSelector(selectTasks)
 
   const dispatch = useAppDispatch();
+
+  const todolistTasks = tasks[id]
+  let filteredTasks = todolistTasks
+  if (filter === 'active') {
+    filteredTasks = todolistTasks.filter(task => !task.isDone)
+  }
+  if (filter === 'completed') {
+    filteredTasks = todolistTasks.filter(task => task.isDone)
+  }
 
   const changeFilterHandler = (filter: FilterValues) => {
     dispatch(changeTodolistFilterAC({id, filter}))
@@ -54,11 +63,11 @@ export const TodolistItem = (props: Props) => {
           </IconButton>
         </div>
         <CreateItemForm onCreateItem={createTaskHandler}/>
-        {tasks.length === 0 ? (
+        {filteredTasks.length === 0 ? (
             <p>Тасок нет</p>
         ) : (
             <List>
-              {tasks.map(task => {
+              {filteredTasks.map(task => {
                 const deleteTaskHandler = () => {
                   dispatch(deleteTaskAC({todolistId: id, taskId: task.id}))
                 }
