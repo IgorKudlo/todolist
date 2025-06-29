@@ -14,9 +14,13 @@ export const appSlice = createSlice({
       ),
     };
   },
+  selectors: {
+    selectThemeMode: (sliceState) => sliceState.themeMode
+  }
 });
 
 export type ThemeMode = "dark" | "light";
 
 export const appReducer = appSlice.reducer;
 export const { changeThemeModeAC } = appSlice.actions;
+export const { selectThemeMode } = appSlice.selectors;
