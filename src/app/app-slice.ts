@@ -1,26 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit"
 
 export const appSlice = createSlice({
   name: "app",
   initialState: {
     themeMode: "light" as ThemeMode,
   },
-  reducers: (create) => {
-    return {
-      changeThemeModeAC: create.reducer<{ themeMode: ThemeMode }>(
-        (state, action) => {
-          state.themeMode = action.payload.themeMode;
-        },
-      ),
-    };
-  },
   selectors: {
-    selectThemeMode: (sliceState) => sliceState.themeMode
-  }
-});
+    selectThemeMode: (state) => state.themeMode,
+  },
+  reducers: (create) => ({
+    changeThemeModeAC: create.reducer<{ themeMode: ThemeMode }>((state, action) => {
+      state.themeMode = action.payload.themeMode
+    }),
+  }),
+})
 
-export type ThemeMode = "dark" | "light";
+export const { selectThemeMode } = appSlice.selectors
+export const { changeThemeModeAC } = appSlice.actions
+export const appReducer = appSlice.reducer
 
-export const appReducer = appSlice.reducer;
-export const { changeThemeModeAC } = appSlice.actions;
-export const { selectThemeMode } = appSlice.selectors;
+export type ThemeMode = "dark" | "light"

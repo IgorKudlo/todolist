@@ -1,4 +1,4 @@
-import {changeThemeModeAC, selectThemeMode} from "@/app/app-slice.ts"
+import { changeThemeModeAC, selectThemeMode } from "@/app/app-slice.ts"
 import { useAppDispatch, useAppSelector } from "@/common/hooks"
 import { containerSx } from "@/common/styles"
 import { getTheme } from "@/common/theme"
